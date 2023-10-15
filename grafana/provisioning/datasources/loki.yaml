@@ -1,0 +1,11 @@
+apiVersion: 1
+
+datasources:
+  - name: Loki
+    type: loki
+    access: proxy
+    #host.docker.internal - good for windows OS
+    #localhost
+    url: http://10.0.2.15:3100
+    jsonData:
+      maxLines: 1000
