@@ -3,10 +3,7 @@
 Создать каталог, скачать репозиторий в каталог 
 
     git clone https://github.com/ybuuth/linux_monitoring-1c.git
-    
-Запустить docker, запустить командную строку например в Powershell. В командной строке перейти в каталог со скачанным репозиторием, далее запустить службы в docker через 
-
-    docker compose up -d
+     
 ## 2.Проверить время сервера UTC. 
 Установить его в .\promtail\conf\promtail-local-config.yaml
 
@@ -33,4 +30,9 @@
 В процессе. Пока отсутствует. Прометеус будет ругаться что служба WMI exporter недоступна. Не обращать внимание. При необходимости нужно взять отсюда:
 
     https://github.com/prometheus-community/windows_exporter
+
+## 5.Запуск в docker
+Запустить docker, запустить командную строку например в Powershell. В командной строке перейти в каталог со скачанным репозиторием, далее запустить службы в docker через 
+
+    docker compose up -d
 
