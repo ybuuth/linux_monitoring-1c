@@ -2,7 +2,7 @@
 ## 1.Скачать репозиторий
 Создать каталог, скачать репозиторий в каталог 
 
-    git clone https://github.com/ybuuth/monitoring-1c.git
+    git clone https://github.com/ybuuth/linux_monitoring-1c.git
     
 Запустить docker, запустить командную строку например в Powershell. В командной строке перейти в каталог со скачанным репозиторием, далее запустить службы в docker через 
 
