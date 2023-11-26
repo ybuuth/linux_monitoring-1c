@@ -6,7 +6,7 @@ datasources:
    access: proxy
    #host.docker.internal
    #localhost
-   url: http://10.0.2.15:9090
+   url: http://prometheus:9090
    jsonData:
       httpMethod: POST
       manageAlerts: false
