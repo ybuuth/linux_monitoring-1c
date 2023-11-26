@@ -36,3 +36,8 @@
 
     docker compose up -d
 
+## 6.В файле конфигурации promtail "promtail-local-config.yaml" включен режим логирования debug, после того как чтение логов отлажено, перевести в режим info
+
+    log_level:info
+
+
