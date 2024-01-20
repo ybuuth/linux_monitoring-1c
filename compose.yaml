@@ -42,7 +42,8 @@ services:
       - "monitoring"
     volumes:
     # копируем логи
-    #  - D:/work_logs/promtail:/var/log
+      - '/home/usersamba/smb/logs:/var/log'
+    #  - '/var/log:/var/log'
     #  - C:/work_logs:/var/log/work_log
     # настройки конф файла
       - ./promtail/conf:/etc/promtail
@@ -51,8 +52,8 @@ services:
     command: 
       - '--config.file=/etc/promtail/promtail-local-config.yaml'
     #Режим отладки (--dry-run отключает передачу данных в loki)  
-    #  - '--inspect'
-    #  - '--dry-run'
+#      - '--inspect'
+#      - '--dry-run'
   loki:
     image: grafana/loki:main-41eb82b
     container_name: grafana-loki
