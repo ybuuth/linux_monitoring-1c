@@ -2,6 +2,8 @@ auth_enabled: false
 
 server:
   http_listen_port: 3100
+  grpc_server_max_recv_msg_size: 99194304
+  grpc_server_max_send_msg_size: 99194304
 
 common:
   path_prefix: /loki
@@ -14,6 +16,14 @@ common:
     kvstore:
       store: inmemory
 
+chunk_store_config:
+  max_look_back_period: 0s
+  chunk_cache_config:
+    embedded_cache:
+      enabled: true
+      max_size_mb: 500
+      ttl: 24h
+
 schema_config:
   configs:
     - from: 2020-10-24
@@ -24,8 +34,11 @@ schema_config:
         prefix: index_
         period: 24h
 
+limits_config:
+  split_queries_by_interval: 0
+
 ingester:
-  max_chunk_age: 72h
+  max_chunk_age: 12h
 
 ruler:
   alertmanager_url: http://localhost:9093

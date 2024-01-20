@@ -9,7 +9,7 @@ positions:
 
 clients:
 #host.docker.internal
-  - url: http://host.docker.internal:3100/loki/api/v1/push
+  - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
 - job_name: ones-tj
@@ -19,17 +19,17 @@ scrape_configs:
       max_wait_time: 3s
       max_lines: 5000  
   - regex:
-      expression: "^.*(?P<time>[\\d]{2}:[\\d]{2}.[\\d]+)-(?P<duration>[\\d]+?),(?P<event>\\S+?),.*process=(?P<process>\\S+?),"
-  - regex:
-      expression: "^.*p:processName=(?P<processName>\\S+?),"
-  - regex:
-      expression: "^.*Usr=(?P<user>.*?)," 
+      expression: "^.*(?P<time>[\\d]{2}:[\\d]{2}.[\\d]+)-(?P<duration>[\\d]+?),(?P<event>\\S+?),.*process=(?P<process>\\S+?),.*p:processName=(?P<processName>\\S+?),.*Usr=(?P<user>.*?),"
+#  - regex:
+#      expression: "^"
+#  - regex:
+#      expression: "^" 
   - template:
       source: timestamp
-      template: '{{ $val := .filename | regexFind "[1-9][0-9][0-1][0-9][0-3][0-9][0-2][0-9]" }}20{{ $val | substr 0 2 }}-{{ $val | substr 2 4 }}-{{ $val | substr 4 6 }}T{{ $val | substr 6 8 }}:{{ .time }}+04:00'
+      template: '{{ $val := .filename | regexFind "[1-9][0-9][0-1][0-9][0-3][0-9][0-2][0-9]" }}20{{ $val | substr 0 2 }}-{{ $val | substr 2 4 }}-{{ $val | substr 4 6 }}T{{ $val | substr 6 8 }}:{{ .time }}+03:00'
   - labels:
       event:
-      user:
+#      user:
       process:
       processName:
       duration:
@@ -52,8 +52,13 @@ scrape_configs:
       
   static_configs:
   - targets:
-      - host.docker.internal
+      - localhost
     #  - grafana-loki
     labels:
-      job: ones-tj
-      __path__: var/log/work_log/rphost*/*.log
+      job: tj_analyze
+      #__path__: /home/rsys/share/test/rphost*/*.log
+      #__path__: var/log/test/*.log
+      #__path__: var/log/*.log
+
+      #job: one-s
+      __path__: var/log/*/rphost*/*.log
