@@ -39,5 +39,17 @@
 В файле конфигурации promtail "promtail-local-config.yaml" включен режим логирования debug, после того как чтение логов отлажено, перевести в режим info
 
     log_level:info
+## 7. Рестарт Докера
+Docker службы копят кэш в памяти, после чего сбрасывают кэш на диск и забивают все пространство, рестарт контейнеров не помогает, нужен рестарт Докера
+Открыть планировщик:
 
+    crontab -e
+
+Указать расписание рестарта, хорошее описание тут:
+
+    https://www.codetd.com/en/article/16966515
+
+У меня в планировщик добавлено расписание рестарта каждый час:
+
+    0 * * * * cd /home/rsys/monitoring/linux_monitoring-1c && /home/rsys/monitoring/linux_monitoring-1c/docker-compose down && /home/rsys/monitoring/linux_monitoring-1c/docker-compose up -d
 
