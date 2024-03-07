@@ -1,7 +1,7 @@
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
-  log_level: info
+  log_level: idebug
 
 positions:
 # путь к файлу, который хранит позицию на которой остановилось чтение
