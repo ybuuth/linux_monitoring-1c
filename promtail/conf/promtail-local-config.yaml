@@ -1,7 +1,7 @@
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
-  log_level: debug
+  log_level: info
 
 positions:
 # путь к файлу, который хранит позицию на которой остановилось чтение
@@ -17,13 +17,13 @@ scrape_configs:
   - multiline:
       firstline: '^.*[\d]{2}:[\d]{2}\.[\d]{6}-[\d]+'
       max_wait_time: 3s
-      max_lines: 5000  
+      max_lines: 5000
   - regex:
-      expression: "^.*(?P<time>[\\d]{2}:[\\d]{2}.[\\d]+)-(?P<duration>[\\d]+?),(?P<event>\\S+?),.*process=(?P<process>\\S+?),.*p:processName=(?P<processName>\\S+?),.*Usr=(?P<user>.*?),"
-#  - regex:
-#      expression: "^"
-#  - regex:
-#      expression: "^" 
+      expression: "^.*(?P<time>[\\d]{2}:[\\d]{2}.[\\d]+)-(?P<duration>[\\d]+?),(?P<event>\\S+?),.*process=(?P<process>\\S+?),"
+  - regex:
+      expression: "p:processName=(?P<processName>\\S+?),"
+  - regex:
+      expression: "Usr=(?P<user>.*?),"
   - template:
       source: timestamp
       template: '{{ $val := .filename | regexFind "[1-9][0-9][0-1][0-9][0-3][0-9][0-2][0-9]" }}20{{ $val | substr 0 2 }}-{{ $val | substr 2 4 }}-{{ $val | substr 4 6 }}T{{ $val | substr 6 8 }}:{{ .time }}+03:00'
@@ -49,16 +49,15 @@ scrape_configs:
 #       max_idle_duration: 24h
 #       config:
 #         action: add
-      
+
   static_configs:
   - targets:
       - localhost
-    #  - grafana-loki
     labels:
-      job: tj_analyze
-      #__path__: /home/rsys/share/test/rphost*/*.log
-      #__path__: var/log/test/*.log
-      #__path__: var/log/*.log
-
-      #job: one-s
-      __path__: var/log/*/rphost*/*.log
+      job: prod_logs
+      __path__: var/log/prod/*/rphost*/*.log
+  - targets:
+      - localhost
+    labels:
+      job: regres_logs
+      __path__: var/log/regres/*/rphost*/*.log

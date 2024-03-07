@@ -42,14 +42,13 @@ services:
       - "monitoring"
     volumes:
     # копируем логи
-      - '/home/usersamba/smb/logs:/var/log'
-    #  - '/var/log:/var/log'
-    #  - C:/work_logs:/var/log/work_log
+      - '/home/usersamba/smb/logs:/var/log/prod'
+      - '/home/usersamba/regres/Logs:/var/log/regres'
     # настройки конф файла
       - ./promtail/conf:/etc/promtail
     # настраиваем файл, хранящий позицию на которой остановилось чтение
       - ./promtail/positions:/tmp
-    command: 
+    command:
       - '--config.file=/etc/promtail/promtail-local-config.yaml'
     #Режим отладки (--dry-run отключает передачу данных в loki)  
 #      - '--inspect'
@@ -90,7 +89,7 @@ services:
     volumes:
       - '/:/host:ro,rslave'
     networks:
-      - "monitoring" 
+      - "monitoring"
 networks:
   monitoring:
     name: 'grafana'
@@ -101,7 +100,3 @@ volumes:
   prometheus_data: {}
 # Хранилище данных loki
   loki_data: {}
-
-
-
-  
