@@ -13,18 +13,18 @@
 
 где 04:00 заменить на время по UTC например для мск - 03:00
 ## 3.Настроить пути для сбора логов с технологического журнала. 
-Заменить в .\promtail\conf\promtail-local-config.yaml:
+Заменить в .\promtail\conf\promtail-local-config.yaml на ваши имена "job" и path:
       
       labels:
-      job: test_logs
-      __path__: var/log/bf-log/*log
+      job: prod_logs
+      __path__: var/log/prod/*/rphost*/*.log
 
   Также заменить настройки хранения таких логов в compose.yaml
 
       volumes:
       # копируем логи
-      - D:/work_logs/promtail:/var/log # реальный путь к логам: D:\work_logs\promtail\bf-log\*.log
-      - C:/work_logs:/var/log/work_log
+      - '/home/usersamba/smb/logs:/var/log/prod' # на ваш путь к логам например: D:\work_logs\promtail\log\*.log
+      - '/home/usersamba/regres/Logs:/var/log/regres'
 
   на Ваши пути
 ## 4.Сбор метрик железа с помощью "node exporter"
